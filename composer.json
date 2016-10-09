@@ -1,12 +1,16 @@
 {
-  "name": "prestashop/blockadvertising",
-  "description": "PrestaShop module blockadvertising",
-  "homepage": "https://github.com/PrestaShop/blockadvertising",
+  "name": "prestashop/blockpartners",
+  "description": "PrestaShop module blockparteners",
+  "homepage": "https://github.com/PrestaShop/blockpartners",
   "license": "AFL - Academic Free License (AFL 3.0)",
   "authors": [
     {
       "name": "PrestaShop SA",
       "email": "contact@prestashop.com"
+    },
+    {
+      "name": "Flavius Bindea",
+      "email": "flav1972@users.noreply.github.com"
     }
   ],
   "require": {

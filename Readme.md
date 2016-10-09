@@ -1,8 +1,8 @@
-# Advertising block
+# Partners block
 
 ## About
 
-Adds an advertisement block to selected sections of your e-commerce website.
+Adds an parteners block to selected sections of your e-commerce website.
 
 ## Contributing
 
@@ -21,7 +21,7 @@ Contributors **must** follow the following rules:
 Contributors wishing to edit a module's files should follow the following process:
 
 1. Create your GitHub account, if you do not have one already.
-2. Fork the blockadvertising project to your GitHub account.
+2. Fork the partners project to your GitHub account.
 3. Clone your fork to your local machine in the ```/modules``` directory of your PrestaShop installation.
 4. Create a branch in your local clone of the module for your changes.
 5. Change the files in your branch. Be sure to follow [the coding standards][1]!

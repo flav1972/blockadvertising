@@ -30,20 +30,20 @@ if (!defined('_PS_VERSION_'))
 class BlockAdvertising extends Module
 {
 	/* Title associated to the image */
-	public $adv_title;
+	public $partn_title;
 
 	/* Link associated to the image */
-	public $adv_link;
+	public $partn_link;
 
 	/* Name of the image without extension */
-	public $adv_imgname;
+	public $partn_imgname;
 
 	/* Image path with extension */
-	public $adv_img;
+	public $partn_img;
 
 	public function __construct()
 	{
-		$this->name = 'blockadvertising';
+		$this->name = 'blockpartners';
 		$this->tab = 'advertising_marketing';
 		$this->version = '0.10.1';
 		$this->author = 'PrestaShop';
@@ -52,8 +52,8 @@ class BlockAdvertising extends Module
 		$this->bootstrap = true;
 		parent::__construct();
 
-		$this->displayName = $this->l('Advertising block');
-		$this->description = $this->l('Adds an advertisement block to selected sections of your e-commerce website.');
+		$this->displayName = $this->l('Partners block');
+		$this->description = $this->l('Adds an parteners block to selected sections of your e-commerce website.');
 		$this->ps_versions_compliancy = array('min' => '1.6', 'max' => '1.6.99.99');
 
 		$this->initialize();
@@ -64,23 +64,23 @@ class BlockAdvertising extends Module
 	 */
 	protected function initialize()
 	{
-		$this->adv_imgname = 'advertising';
+		$this->partn_imgname = 'partners';
 		if ((Shop::getContext() == Shop::CONTEXT_GROUP || Shop::getContext() == Shop::CONTEXT_SHOP)
-			&& file_exists(_PS_MODULE_DIR_.$this->name.'/img/'.$this->adv_imgname.'-g'.$this->context->shop->getContextShopGroupID().'.'.Configuration::get('BLOCKADVERT_IMG_EXT'))
+			&& file_exists(_PS_MODULE_DIR_.$this->name.'/img/'.$this->partn_imgname.'-g'.$this->context->shop->getContextShopGroupID().'.'.Configuration::get('BLOCKPARTN_IMG_EXT'))
 		)
-			$this->adv_imgname .= '-g'.$this->context->shop->getContextShopGroupID();
+			$this->partn_imgname .= '-g'.$this->context->shop->getContextShopGroupID();
 		if (Shop::getContext() == Shop::CONTEXT_SHOP
-			&& file_exists(_PS_MODULE_DIR_.$this->name.'/img/'.$this->adv_imgname.'-s'.$this->context->shop->getContextShopID().'.'.Configuration::get('BLOCKADVERT_IMG_EXT'))
+			&& file_exists(_PS_MODULE_DIR_.$this->name.'/img/'.$this->partn_imgname.'-s'.$this->context->shop->getContextShopID().'.'.Configuration::get('BLOCKPARTN_IMG_EXT'))
 		)
-			$this->adv_imgname .= '-s'.$this->context->shop->getContextShopID();
+			$this->partn_imgname .= '-s'.$this->context->shop->getContextShopID();
 
 		// If none of them available go default
-		if ($this->adv_imgname == 'advertising')
-			$this->adv_img = Tools::getMediaServer($this->name)._MODULE_DIR_.$this->name.'/img/fixtures/'.$this->adv_imgname.'.jpg';
+		if ($this->partn_imgname == 'partners')
+			$this->partn_img = Tools::getMediaServer($this->name)._MODULE_DIR_.$this->name.'/img/fixtures/'.$this->partn_imgname.'.jpg';
 		else
-			$this->adv_img = Tools::getMediaServer($this->name)._MODULE_DIR_.$this->name.'/img/'.$this->adv_imgname.'.'.Configuration::get('BLOCKADVERT_IMG_EXT');
-		$this->adv_link = htmlentities(Configuration::get('BLOCKADVERT_LINK'), ENT_QUOTES, 'UTF-8');
-		$this->adv_title = htmlentities(Configuration::get('BLOCKADVERT_TITLE'), ENT_QUOTES, 'UTF-8');
+			$this->partn_img = Tools::getMediaServer($this->name)._MODULE_DIR_.$this->name.'/img/'.$this->partn_imgname.'.'.Configuration::get('BLOCKPARTN_IMG_EXT');
+		$this->partn_link = htmlentities(Configuration::get('BLOCKPARTN_LINK'), ENT_QUOTES, 'UTF-8');
+		$this->partn_title = htmlentities(Configuration::get('BLOCKPARTN_TITLE'), ENT_QUOTES, 'UTF-8');
 	}
 
 	public function install()
@@ -101,21 +101,21 @@ class BlockAdvertising extends Module
 			return false;
 		}
 
-		Configuration::updateGlobalValue('BLOCKADVERT_LINK', 'http://www.prestashop.com/');
-		Configuration::updateGlobalValue('BLOCKADVERT_TITLE', 'PrestaShop');
+		Configuration::updateGlobalValue('BLOCKPARTN_LINK', 'http://www.prestashop.com/');
+		Configuration::updateGlobalValue('BLOCKPARTN_TITLE', 'PrestaShop');
 		// Try to update with the extension of the image that exists in the module directory
 		foreach (scandir(_PS_MODULE_DIR_.$this->name) as $file)
-			if (in_array($file, array('advertising.jpg', 'advertising.gif', 'advertising.png')))
-				Configuration::updateGlobalValue('BLOCKADVERT_IMG_EXT', substr($file, strrpos($file, '.') + 1));
+			if (in_array($file, array('partners.jpg', 'partners.gif', 'partners.png')))
+				Configuration::updateGlobalValue('BLOCKPARTN_IMG_EXT', substr($file, strrpos($file, '.') + 1));
 
 		return true;
 	}
 
 	public function uninstall()
 	{
-		Configuration::deleteByName('BLOCKADVERT_LINK');
-		Configuration::deleteByName('BLOCKADVERT_TITLE');
-		Configuration::deleteByName('BLOCKADVERT_IMG_EXT');
+		Configuration::deleteByName('BLOCKPARTN_LINK');
+		Configuration::deleteByName('BLOCKPARTN_TITLE');
+		Configuration::deleteByName('BLOCKPARTN_IMG_EXT');
 
 		return (parent::uninstall());
 	}
@@ -128,12 +128,12 @@ class BlockAdvertising extends Module
 	private function _deleteCurrentImg()
 	{
 		// Delete the image file
-		if ($this->adv_imgname != 'advertising' && file_exists(_PS_MODULE_DIR_.$this->name.'/img/'.$this->adv_imgname.'.'.Configuration::get('BLOCKADVERT_IMG_EXT')))
-			unlink(_PS_MODULE_DIR_.$this->name.'/img/'.$this->adv_imgname.'.'.Configuration::get('BLOCKADVERT_IMG_EXT'));
+		if ($this->partn_imgname != 'partners' && file_exists(_PS_MODULE_DIR_.$this->name.'/img/'.$this->partn_imgname.'.'.Configuration::get('BLOCKPARTN_IMG_EXT')))
+			unlink(_PS_MODULE_DIR_.$this->name.'/img/'.$this->partn_imgname.'.'.Configuration::get('BLOCKPARTN_IMG_EXT'));
 
 		// Update the extension to the global value or the shop group value if available
-		Configuration::deleteFromContext('BLOCKADVERT_IMG_EXT');
-		Configuration::updateValue('BLOCKADVERT_IMG_EXT', Configuration::get('BLOCKADVERT_IMG_EXT'));
+		Configuration::deleteFromContext('BLOCKPARTN_IMG_EXT');
+		Configuration::updateValue('BLOCKPARTN_IMG_EXT', Configuration::get('BLOCKPARTN_IMG_EXT'));
 
 		// Reset the properties of the module
 		$this->initialize();
@@ -147,42 +147,42 @@ class BlockAdvertising extends Module
 		$errors = '';
 		if (Tools::isSubmit('submitAdvConf'))
 		{
-			if (isset($_FILES['adv_img']) && isset($_FILES['adv_img']['tmp_name']) && !empty($_FILES['adv_img']['tmp_name']))
+			if (isset($_FILES['partn_img']) && isset($_FILES['partn_img']['tmp_name']) && !empty($_FILES['partn_img']['tmp_name']))
 			{
-				if ($error = ImageManager::validateUpload($_FILES['adv_img'], Tools::convertBytes(ini_get('upload_max_filesize'))))
+				if ($error = ImageManager::validateUpload($_FILES['partn_img'], Tools::convertBytes(ini_get('upload_max_filesize'))))
 					$errors .= $error;
 				else
 				{
-					Configuration::updateValue('BLOCKADVERT_IMG_EXT', substr($_FILES['adv_img']['name'], strrpos($_FILES['adv_img']['name'], '.') + 1));
+					Configuration::updateValue('BLOCKPARTN_IMG_EXT', substr($_FILES['partn_img']['name'], strrpos($_FILES['partn_img']['name'], '.') + 1));
 
 					// Set the image name with a name contextual to the shop context
-					$this->adv_imgname = 'advertising';
+					$this->partn_imgname = 'partners';
 					if (Shop::getContext() == Shop::CONTEXT_GROUP)
-						$this->adv_imgname = 'advertising-g'.(int)$this->context->shop->getContextShopGroupID();
+						$this->partn_imgname = 'partners-g'.(int)$this->context->shop->getContextShopGroupID();
 					elseif (Shop::getContext() == Shop::CONTEXT_SHOP)
-						$this->adv_imgname = 'advertising-s'.(int)$this->context->shop->getContextShopID();
+						$this->partn_imgname = 'partners-s'.(int)$this->context->shop->getContextShopID();
 
 					// Copy the image in the module directory with its new name
-					if (!move_uploaded_file($_FILES['adv_img']['tmp_name'], _PS_MODULE_DIR_.$this->name.'/img/'.$this->adv_imgname.'.'.Configuration::get('BLOCKADVERT_IMG_EXT')))
+					if (!move_uploaded_file($_FILES['partn_img']['tmp_name'], _PS_MODULE_DIR_.$this->name.'/img/'.$this->partn_imgname.'.'.Configuration::get('BLOCKPARTN_IMG_EXT')))
 						$errors .= $this->l('File upload error.');
 				}
 			}
 
 			// If the link is not set, then delete it in order to use the next default value (either the global value or the group value)
-			if ($link = Tools::getValue('adv_link'))
-				Configuration::updateValue('BLOCKADVERT_LINK', $link);
+			if ($link = Tools::getValue('partn_link'))
+				Configuration::updateValue('BLOCKPARTN_LINK', $link);
 			elseif (Shop::getContext() == Shop::CONTEXT_SHOP || Shop::getContext() == Shop::CONTEXT_GROUP)
-				Configuration::deleteFromContext('BLOCKADVERT_LINK');
+				Configuration::deleteFromContext('BLOCKPARTN_LINK');
 
 			// If the title is not set, then delete it in order to use the next default value (either the global value or the group value)
-			if ($title = Tools::getValue('adv_title'))
-				Configuration::updateValue('BLOCKADVERT_TITLE', $title);
+			if ($title = Tools::getValue('partn_title'))
+				Configuration::updateValue('BLOCKPARTN_TITLE', $title);
 			elseif (Shop::getContext() == Shop::CONTEXT_SHOP || Shop::getContext() == Shop::CONTEXT_GROUP)
-				Configuration::deleteFromContext('BLOCKADVERT_TITLE');
+				Configuration::deleteFromContext('BLOCKPARTN_TITLE');
 
 			// Reset the module properties
 			$this->initialize();
-			$this->_clearCache('blockadvertising.tpl');
+			$this->_clearCache('blockpartners.tpl');
 
 			if (!$errors)
 				Tools::redirectAdmin(AdminController::$currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules').'&conf=6');
@@ -205,16 +205,16 @@ class BlockAdvertising extends Module
 
 	public function hookRightColumn($params)
 	{
-		if (!$this->isCached('blockadvertising.tpl', $this->getCacheId()))
+		if (!$this->isCached('blockpartners.tpl', $this->getCacheId()))
 			$this->smarty->assign(
 				array(
-					'image' => $this->context->link->protocol_content.$this->adv_img,
-					'adv_link' => $this->adv_link,
-					'adv_title' => $this->adv_title,
+					'image' => $this->context->link->protocol_content.$this->partn_img,
+					'partn_link' => $this->partn_link,
+					'partn_title' => $this->partn_title,
 				)
 			);
 
-		return $this->display(__FILE__, 'blockadvertising.tpl', $this->getCacheId());
+		return $this->display(__FILE__, 'blockpartners.tpl', $this->getCacheId());
 	}
 
 	public function hookLeftColumn($params)
@@ -224,7 +224,7 @@ class BlockAdvertising extends Module
 
 	public function hookHeader($params)
 	{
-		$this->context->controller->addCSS($this->_path.'blockadvertising.css', 'all');
+		$this->context->controller->addCSS($this->_path.'blockpartners.css', 'all');
 	}
 
 	public function renderForm()
@@ -239,19 +239,19 @@ class BlockAdvertising extends Module
 					array(
 						'type' => 'file',
 						'label' => $this->l('Image for the advertisement'),
-						'name' => 'adv_img',
+						'name' => 'partn_img',
 						'desc' => $this->l('By default the image will appear in the left column. The recommended dimensions are 155 x 163px.'),
-						'thumb' => $this->context->link->protocol_content.$this->adv_img,
+						'thumb' => $this->context->link->protocol_content.$this->partn_img,
 					),
 					array(
 						'type' => 'text',
 						'label' => $this->l('Target link for the image'),
-						'name' => 'adv_link',
+						'name' => 'partn_link',
 					),
 					array(
 						'type' => 'text',
 						'label' => $this->l('Title of the target link'),
-						'name' => 'adv_title',
+						'name' => 'partn_title',
 						'desc' => $this->l('This title will be displayed when you mouse over the advertisement block in your shop.')
 					),
 				),
@@ -284,8 +284,8 @@ class BlockAdvertising extends Module
 	public function getConfigFieldsValues()
 	{
 		return array(
-			'adv_link' => Tools::getValue('adv_link', Configuration::get('BLOCKADVERT_LINK')),
-			'adv_title' => Tools::getValue('adv_title', Configuration::get('BLOCKADVERT_TITLE')),
+			'partn_link' => Tools::getValue('partn_link', Configuration::get('BLOCKPARTN_LINK')),
+			'partn_title' => Tools::getValue('partn_title', Configuration::get('BLOCKPARTN_TITLE')),
 		);
 	}
 }

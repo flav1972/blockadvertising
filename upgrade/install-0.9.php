@@ -19,9 +19,9 @@ function upgrade_module_0_9($module)
 
 	foreach ($files as $file)
 	{
-		if (strncmp($file, 'advertising', 11) == 0)
+		if (strncmp($file, 'partners', 8) == 0)
 		{
-			if ($file == 'advertising.jpg')
+			if ($file == 'partners.jpg')
 				copy($module_path.$file, $fixture_img_path.DIRECTORY_SEPARATOR.$file);
 			else
 				copy($module_path.$file, $img_folder_path.DIRECTORY_SEPARATOR.$file);
@@ -30,7 +30,7 @@ function upgrade_module_0_9($module)
 		}
 	}
 
-	Tools::clearCache(Context::getContext()->smarty, $module->getTemplatePath('blockadvertising.tpl'));
+	Tools::clearCache(Context::getContext()->smarty, $module->getTemplatePath('blockpartners.tpl'));
 
 	return true;
 }
