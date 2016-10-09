@@ -27,7 +27,7 @@
 <div id="partners_block_left" class="block blockpartners">
 	<h4 class="title_block">{l s='Partners' mod='blockpartners'}</h4>
 	<div class="block_content">
-	<a href="{$partn_link}" title="{$partn_title}"><img src="{$image}" alt="{$partn_title}" title="{$partn_title}" width="155"  height="155" />{$partn_title}</a>
+	<a href="{$partn_link}" title="{$partn_title}"><img src="{$image}" alt="{$partn_title}" title="{$partn_title}" width="155"  height="155" /></a>
 	</div>
 </div>
 <!-- /MODULE Block partners -->
