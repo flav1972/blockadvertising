@@ -17,14 +17,17 @@
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
 *
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2016 PrestaShop SA
+*  @author Flavius Bindea, PrestaShop SA <contact@prestashop.com>
+*  @copyright  2016 Flaviu Bindea, 2007-2016 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-<!-- MODULE Block advertising -->
-<div class="advertising_block">
-	<a href="{$adv_link}" title="{$adv_title}"><img src="{$image}" alt="{$adv_title}" title="{$adv_title}" width="155"  height="163" /></a>
+<!-- MODULE Block partners -->
+<div id="partners_block_left" class="block blockpartners">
+	<h4 class="title_block">{l s='Partners' mod='blockpartners'}</h4>
+	<div class="block_content">
+	<a href="{$partn_link}" title="{$partn_title}"><img src="{$image}" alt="{$partn_title}" title="{$partn_title}" width="155"  height="155" />{$partn_title}</a>
+	</div>
 </div>
-<!-- /MODULE Block advertising -->
+<!-- /MODULE Block partners -->

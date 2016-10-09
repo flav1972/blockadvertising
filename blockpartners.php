@@ -27,7 +27,7 @@
 if (!defined('_PS_VERSION_'))
 	exit;
 
-class BlockAdvertising extends Module
+class BlockPartners extends Module
 {
 	/* Title associated to the image */
 	public $partn_title;
@@ -240,7 +240,7 @@ class BlockAdvertising extends Module
 						'type' => 'file',
 						'label' => $this->l('Image for the advertisement'),
 						'name' => 'partn_img',
-						'desc' => $this->l('By default the image will appear in the left column. The recommended dimensions are 155 x 163px.'),
+						'desc' => $this->l('By default the image will appear in the left column. The recommended dimensions are 155 x 155.'),
 						'thumb' => $this->context->link->protocol_content.$this->partn_img,
 					),
 					array(
